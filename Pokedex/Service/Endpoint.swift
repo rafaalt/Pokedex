@@ -9,6 +9,7 @@ import Foundation
 
 enum Endpoint {
     
+    case getPokemonsUrls(url: String = "/api/v2/pokemon")
     case getPokemon(url: String = "/api/v2/pokemon", id: Int)
     
     var request: URLRequest? {
@@ -32,6 +33,7 @@ enum Endpoint {
     
     private var path: String {
         switch self {
+        case .getPokemonsUrls(let url): return url
         case .getPokemon(let url, let id): return "\(url)/\(id)"
         }
     }
@@ -46,14 +48,16 @@ enum Endpoint {
     
     private var httpMethod: String {
         switch self {
-        case .getPokemon:
+        case .getPokemon,
+             .getPokemonsUrls:
             return HTTP.Method.get.rawValue
         }
     }
     
     private var httpBody: Data? {
         switch self {
-        case .getPokemon:
+        case .getPokemon,
+             .getPokemonsUrls:
             return nil
         }
     }
@@ -63,7 +67,8 @@ extension URLRequest {
     
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
-        case .getPokemon:
+        case .getPokemon,
+             .getPokemonsUrls:
             break
         }
     }

@@ -8,8 +8,9 @@
 import Foundation
 
 struct PokemonType: Codable {
-    var id: Int
+    var id: Int?
     var name: String
+    var url: String
 }
 
 enum Types: String {
@@ -25,8 +26,8 @@ enum Types: String {
     case fire
     case water
     case grass
-    case eletric
-    case phychic
+    case electric
+    case psychic
     case ice
     case dragon
     case dark
