@@ -23,16 +23,15 @@ struct HomeView: View {
                 loadingView
             }
             else {
-                OffsettableScrollView(onReach70Percent: {
-                    viewModel.nextSearch()
-                }) {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(viewModel.pokemon) { pokemon in
-                            PokemonCardView(pokemon: pokemon, perRow: .two)
+                NavigationView{
+                    OffsettableScrollView(onReach70Percent: {
+                        viewModel.nextSearch()
+                    }) {
+                        VStack {
+                            pokedexLogo
+                            pokemonGrid
                         }
                     }
-                    .padding()
-                    nextButton
                 }
             }
         }
@@ -47,12 +46,26 @@ struct HomeView: View {
         }
     }
     
-    var nextButton: some View {
-        Button(action: {
-            viewModel.nextSearch()
-        }) {
-            Text("Tap me!")
-        }
-        .buttonStyle(.borderedProminent)
+    var pokedexLogo: some View {
+        Image("pokedexLogo")
+            .resizable()
+            .scaledToFit()
+            .padding(.horizontal, 80)
+            .padding(.top, 24)
+            .padding(.bottom, 8)
+            .shadow(color: .gray, radius: 2, x: -2, y: 2)
+    }
+    
+    var pokemonGrid: some View {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(viewModel.pokemon) { pokemon in
+                    NavigationLink(destination: PokemonDetailsView(pokemon: pokemon)) {
+                        PokemonCardView(pokemon: pokemon, perRow: .two)
+                            .shadow(color: .gray, radius: 4, x: -4, y: 4)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .padding()
     }
 }

@@ -27,6 +27,7 @@
 		D7FB7CBF2C5716FC00E715BE /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB7CBE2C5716FC00E715BE /* String+Extensions.swift */; };
 		D7FB7CC12C57218300E715BE /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB7CC02C57218300E715BE /* Int+Extensions.swift */; };
 		D7FB7CC32C58830C00E715BE /* OffSetScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB7CC22C58830C00E715BE /* OffSetScrollView.swift */; };
+		D7FB7CC62C59C19D00E715BE /* PokemonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB7CC52C59C19D00E715BE /* PokemonDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		D7FB7CBE2C5716FC00E715BE /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		D7FB7CC02C57218300E715BE /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		D7FB7CC22C58830C00E715BE /* OffSetScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffSetScrollView.swift; sourceTree = "<group>"; };
+		D7FB7CC52C59C19D00E715BE /* PokemonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		D77C7E0B2C51ECFC00E8420B /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
+				D7FB7CC42C59C19200E715BE /* Details */,
 				D7FB7CBD2C5716F100E715BE /* Extensions */,
 				D7FB7CB82C56FF1600E715BE /* View */,
 				D77C7E342C51EFF800E8420B /* Home */,
@@ -160,6 +163,14 @@
 				D7FB7CC02C57218300E715BE /* Int+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D7FB7CC42C59C19200E715BE /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				D7FB7CC52C59C19D00E715BE /* PokemonDetailsView.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +261,7 @@
 				D77C7E292C51EF8000E8420B /* Constants.swift in Sources */,
 				D77C7E362C51F00100E8420B /* HomeView.swift in Sources */,
 				D77C7E272C51EF7700E8420B /* HTTP.swift in Sources */,
+				D7FB7CC62C59C19D00E715BE /* PokemonDetailsView.swift in Sources */,
 				D77C7E252C51EF6000E8420B /* APIService.swift in Sources */,
 				D77C7E2B2C51EF8600E8420B /* Endpoint.swift in Sources */,
 				D7FB7CC12C57218300E715BE /* Int+Extensions.swift in Sources */,
