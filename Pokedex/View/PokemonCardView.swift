@@ -11,7 +11,7 @@ import SwiftUI
 struct PokemonCardView: View {
     
     var pokemon: Pokemon
-    var perRow: framePerSize = .two
+    var perRow: FramePerSize = .two
     
     var body: some View {
         VStack {
@@ -49,16 +49,16 @@ struct PokemonCardView: View {
     }
 }
 
-enum framePerSize {
+enum FramePerSize {
     case one
     case two
     case three
     
     var widthSize: CGFloat {
         switch self {
-        case .one: return 300
+        case .one: return 320
         case .two: return 160
-        case .three: return 120
+        case .three: return 110
         }
     }
     
@@ -66,7 +66,7 @@ enum framePerSize {
         switch self {
         case .one: return .largeTitle
         case .two: return .title2
-        case .three: return .title3
+        case .three: return .headline
         }
     }
     
@@ -81,7 +81,7 @@ enum framePerSize {
 
 
 #Preview {
-    PokemonCardView(pokemon: .init(id: 1, name: "charizard", is_default: true, height: 100, weight: 100, sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"), types: [.init(slot: 10, type: .init(name: "electric", url: ""))]), perRow: .one)
+    PokemonCardView(pokemon: .init(id: 1, name: "charizard", is_default: true, height: 100, weight: 100, stats: [], sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"), types: [.init(slot: 10, type: .init(name: "electric", url: ""))]), perRow: .one)
 }
 
 

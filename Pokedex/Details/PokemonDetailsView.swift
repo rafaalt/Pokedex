@@ -27,48 +27,21 @@ struct PokemonDetailsView: View {
             pokemonId
             pokemonName
             shinyText
-            ZStack {
-                pokemonImage
-                VStack {
-                    HStack {
-                        Button(action: {
-                            changeShiny()
-                        }) {
-                            Image(isShiny ? "shinyYes" : "shinyNo")
-                                .resizable()
-                        }
-                        .frame(width: 50, height: 50)
-                        .padding(16)
-                        Spacer()
-                        Button(action: {
-                            changePosition()
-                        }) {
-                            Image(isFront ? "frontYes" : "frontNo")
-                                .resizable()
-                        }
-                        .frame(width: 50, height: 50)
-                        .padding(16)
-                    }
-                    Spacer()
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: 400)
-            .background(Color(pokemon.types[0].type.name))
-            .cornerRadius(32)
-            .padding(.horizontal, 32)
+            pokemonImageZStack
+            pokemonData
             Spacer()
         }
     }
     
     // MARK: - VIEWS
     
-    var pokemonName: some View {
+    private var pokemonName: some View {
         Text(pokemon.name.firstLetterUpperCased())
             .font(.largeTitle)
             .bold()
     }
     
-    var pokemonId: some View {
+    private var pokemonId: some View {
         Text("#\(pokemon.id.formattedWithLeadingZeros(minimumDigits: 3))")
             .font(.title)
             .bold()
@@ -76,14 +49,69 @@ struct PokemonDetailsView: View {
             .padding(.top, 8)
     }
     
-    var shinyText: some View {
+    private var shinyText: some View {
         Text("Shiny")
             .font(.title2)
             .bold()
             .foregroundStyle(isShiny ? .orange : .clear)
     }
     
-    var pokemonImage: some View {
+    private var pokemonImageZStack: some View {
+        ZStack {
+            pokemonImage
+            VStack {
+                HStack {
+                    Button(action: {
+                        changeShiny()
+                    }) {
+                        Image(isShiny ? "shinyYes" : "shinyNo")
+                            .resizable()
+                    }
+                    .frame(width: 50, height: 50)
+                    .padding(16)
+                    Spacer()
+                    Button(action: {
+                        changePosition()
+                    }) {
+                        Image(isFront ? "frontYes" : "frontNo")
+                            .resizable()
+                    }
+                    .frame(width: 50, height: 50)
+                    .padding(16)
+                }
+                Spacer()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: 400)
+        .background(Color(pokemon.types[0].type.name))
+        .cornerRadius(32)
+        .padding(.horizontal, 32)
+    }
+    
+    private var pokemonData: some View {
+        VStack {
+            HStack {
+                Text("Height: ")
+                    .font(.title3)
+                Text("\(pokemon.height) cm")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+            }
+            HStack {
+                Text("Weight: ")
+                    .font(.title3)
+                Text("\(pokemon.weight) kg")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 32)
+        .padding(.top, 16)
+    }
+    
+    private var pokemonImage: some View {
         KFImage(URL(string: selectedImage))
             .placeholder {
                 Image("pokeball")
@@ -119,5 +147,5 @@ struct PokemonDetailsView: View {
 }
 
 #Preview {
-    PokemonDetailsView(pokemon: .init(id: 1, name: "Charizard", is_default: true, height: 100, weight: 100, sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png", front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/465.png"), types: [.init(slot: 1, type: .init(name: "fire", url: ""))]))
+    PokemonDetailsView(pokemon: .init(id: 1, name: "Charizard", is_default: true, height: 100, weight: 100, stats: [], sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png", front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/465.png"), types: [.init(slot: 1, type: .init(name: "fire", url: ""))]))
 }
