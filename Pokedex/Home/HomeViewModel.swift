@@ -39,35 +39,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func getPokemonByUrl(url: String) {
-        useCase.getPokemonByUrl(url: url) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let pokemon):
-                    self?.pokemon.append(pokemon)
-                case .failure(let error):
-                    print("ERROR: \(error)")
-                }
-            }
-        }
-    }
-    
-    func getPokemon(id: Int) {
-        useCase.getPokemon(id: id) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let pokemon):
-                    self?.pokemon.append(pokemon)
-                case .failure(let error):
-                    print("ERROR: \(error)")
-                }
-            }
-        }
-    }
-    
     func nextSearch() {
         guard let next = nextPage else { return }
-        print(next)
         nextPage = nil
         if !loadingMore {
             loadingMore = true
@@ -87,6 +60,40 @@ class HomeViewModel: ObservableObject {
                     }
                 }
             }
+        }
+    }
+    
+    func getPokemonByUrl(url: String) {
+        useCase.getPokemonByUrl(url: url) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let pokemon):
+                    self?.addPokemonInOrder(pokemon)
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                }
+            }
+        }
+    }
+    
+    func getPokemon(id: Int) {
+        useCase.getPokemon(id: id) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let pokemon):
+                    self?.addPokemonInOrder(pokemon)
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                }
+            }
+        }
+    }
+    
+    private func addPokemonInOrder(_ newPokemon: Pokemon) {
+        if let index = self.pokemon.firstIndex(where: { $0.id > newPokemon.id }) {
+            self.pokemon.insert(newPokemon, at: index)
+        } else {
+            self.pokemon.append(newPokemon)
         }
     }
 }
