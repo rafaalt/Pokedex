@@ -15,10 +15,11 @@ class HomeViewModel: ObservableObject {
     private var useCase: HomeUseCase
     private var nextPage: String?
     private var previousPage: String?
-    
+    private var maxStats: [String: Int]
     
     init() {
         self.useCase = HomeUseCase()
+        self.maxStats = [:]
         startSearch()
     }
     
@@ -70,7 +71,7 @@ class HomeViewModel: ObservableObject {
                 case .success(let pokemon):
                     self?.addPokemonInOrder(pokemon)
                 case .failure(let error):
-                    print("ERROR: \(error)")
+                    print("ERROR1: \(error)")
                 }
             }
         }
@@ -90,10 +91,23 @@ class HomeViewModel: ObservableObject {
     }
     
     private func addPokemonInOrder(_ newPokemon: Pokemon) {
+        for stat in newPokemon.stats {
+            if let oldValue = maxStats[stat.stat.name] {
+                if stat.base_stat > oldValue {
+                    maxStats[stat.stat.name] = stat.base_stat
+                }
+            } else {
+                maxStats[stat.stat.name] = stat.base_stat
+            }
+        }
         if let index = self.pokemon.firstIndex(where: { $0.id > newPokemon.id }) {
             self.pokemon.insert(newPokemon, at: index)
         } else {
             self.pokemon.append(newPokemon)
         }
+    }
+    
+    func getMaxStats() -> [String:Int] {
+        return maxStats
     }
 }

@@ -115,9 +115,9 @@ struct HomeView: View {
     private var pokemonGrid: some View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(viewModel.pokemon) { pokemon in
-                    NavigationLink(destination: PokemonDetailsView(pokemon: pokemon)) {
+                    NavigationLink(destination: PokemonDetailsView(pokemon: pokemon, maxStats: viewModel.getMaxStats())) {
                         PokemonCardView(pokemon: pokemon, perRow: gridSize)
-                            .shadow(color: .gray, radius: 4, x: -4, y: 4)
+                            .shadow(color: .gray, radius: 2, x: -2, y: 2)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }

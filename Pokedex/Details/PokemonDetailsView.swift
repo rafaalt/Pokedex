@@ -11,26 +11,31 @@ import SwiftUI
 struct PokemonDetailsView: View {
     
     var pokemon: Pokemon
+    var maxStats: [String : Int]
     @State private var isShiny = false
     @State private var isFront = true
     @State private var selectedImage: String
     
-    init(pokemon: Pokemon, isShiny: Bool = false, isFront: Bool = true) {
+    init(pokemon: Pokemon, maxStats: [String:Int], isShiny: Bool = false, isFront: Bool = true) {
         self.pokemon = pokemon
+        self.maxStats = maxStats
         self.isShiny = isShiny
         self.isFront = isFront
         self.selectedImage = pokemon.sprites.front_default ?? ""
     }
     
     var body: some View {
-        VStack {
-            pokemonId
-            pokemonName
-            shinyText
-            pokemonImageZStack
-            pokemonTypes
-            pokemonData
-            Spacer()
+        ScrollView {
+            VStack {
+                pokemonId
+                pokemonName
+                shinyText
+                pokemonImageZStack
+                pokemonTypes
+                pokemonData
+                pokemonStats
+                Spacer()
+            }
         }
     }
     
@@ -83,6 +88,7 @@ struct PokemonDetailsView: View {
                 Spacer()
             }
         }
+        .frame(height: 400)
         .frame(maxWidth: .infinity, maxHeight: 400)
         .background(Color(pokemon.types[0].type.name))
         .cornerRadius(32)
@@ -133,6 +139,16 @@ struct PokemonDetailsView: View {
             .padding(.vertical, 24)
     }
     
+    private var pokemonStats: some View {
+        VStack() {
+            ForEach(pokemon.stats) { stat in
+                StatView(stat: stat, percent: getPercentByStat(stat: stat))
+            }
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+    }
+    
     //MARK: - PRIVATE METHODS
     
     private func changeShiny() {
@@ -153,8 +169,13 @@ struct PokemonDetailsView: View {
             selectedImage = (isShiny ? pokemon.sprites.back_shiny : pokemon.sprites.back_default) ?? ""
         }
     }
+    
+    private func getPercentByStat(stat: Stats) -> CGFloat{
+        guard let maxValue = maxStats[stat.stat.name] else { return 0 }
+        return CGFloat(stat.base_stat)/CGFloat(maxValue)
+    }
 }
 
 #Preview {
-    PokemonDetailsView(pokemon: .init(id: 1, name: "Charizard", is_default: true, height: 100, weight: 100, stats: [], sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png", front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/465.png"), types: [.init(slot: 1, type: .init(name: "fire", url: ""))]))
+    PokemonDetailsView(pokemon: .init(id: 1, name: "Charizard", is_default: true, height: 100, weight: 100, stats: [.init(base_stat: 77, effort: 1, stat: .init(name: "hp", url: "")),.init(base_stat: 11, effort: 1, stat: .init(name: "attack", url: ""))], sprites: .init(front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png", front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/465.png"), types: [.init(slot: 1, type: .init(name: "fire", url: ""))]), maxStats: [:])
 }

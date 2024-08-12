@@ -46,7 +46,8 @@ struct PokemonTypes: Codable, Identifiable {
     var type: PokemonType
 }
 
-struct Stats: Codable {
+struct Stats: Codable, Identifiable {
+    var id: String { stat.name }
     var base_stat: Int
     var effort: Int
     var stat: PokemonStat
