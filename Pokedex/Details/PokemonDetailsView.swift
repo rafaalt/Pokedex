@@ -28,6 +28,7 @@ struct PokemonDetailsView: View {
             pokemonName
             shinyText
             pokemonImageZStack
+            pokemonTypes
             pokemonData
             Spacer()
         }
@@ -88,24 +89,32 @@ struct PokemonDetailsView: View {
         .padding(.horizontal, 32)
     }
     
+    private var pokemonTypes: some View {
+        HStack {
+            ForEach(pokemon.types) { type in
+                Image("\(type.type.name)Type")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+            }
+        }
+        .padding(.horizontal, 32)
+        .padding(.top, 16)
+    }
+    
     private var pokemonData: some View {
-        VStack {
-            HStack {
-                Text("Height: ")
-                    .font(.title3)
-                Text("\(pokemon.height) cm")
-                    .font(.title2)
-                    .bold()
-                Spacer()
-            }
-            HStack {
-                Text("Weight: ")
-                    .font(.title3)
-                Text("\(pokemon.weight) kg")
-                    .font(.title2)
-                    .bold()
-                Spacer()
-            }
+        HStack {
+            Text("Height: ")
+                .font(.title3)
+            Text("\(pokemon.height) cm")
+                .font(.title2)
+                .bold()
+            Spacer()
+            Text("Weight: ")
+                .font(.title3)
+            Text("\(pokemon.weight) kg")
+                .font(.title2)
+                .bold()
         }
         .padding(.horizontal, 32)
         .padding(.top, 16)

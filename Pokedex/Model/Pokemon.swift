@@ -40,7 +40,8 @@ struct Sprites: Codable {
     var front_fenale_shiny: String?
 }
 
-struct PokemonTypes: Codable {
+struct PokemonTypes: Codable, Identifiable {
+    var id: Int { slot }
     var slot: Int
     var type: PokemonType
 }
