@@ -27,11 +27,13 @@ struct StatView: View {
             GeometryReader { geometry in
                 HStack {
                     HStack {
-                        Text(String(stat.base_stat))
-                            .font(.title2)
-                            .bold()
-                            .foregroundStyle(.white)
-                        Spacer()
+                        if percent>0.2 {
+                            Text(String(stat.base_stat))
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
                         Image(systemName: returnType(type: stat.stat.name).iconName)
                             .foregroundStyle(.white)
                     }
@@ -39,6 +41,12 @@ struct StatView: View {
                     .frame(width: geometry.size.width*percent, height: 50)
                     .background(returnColor(percent: percent*100))
                     .cornerRadius(8)
+                    if percent <= 0.2 {
+                        Text(String(stat.base_stat))
+                            .font(.title2)
+                            .bold()
+                            .foregroundStyle(returnColor(percent: percent*100))
+                    }
                     Spacer()
                 }
             }
